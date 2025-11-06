@@ -1,33 +1,4 @@
-// Fix: Use Firebase v8 compat imports. The modular SDK v9+ requires '/compat' for the v8 API.
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/compat/storage";
-import { User, Artisan, Post, Chat, Message, SliderCardData } from './types';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyC7nJBSHlbuGOprw1xYZZPxSxpkLbdHkj4",
-  authDomain: "artisanfinder-67323.firebaseapp.com",
-  projectId: "artisanfinder-67323",
-  storageBucket: "artisanfinder-67323.appspot.com",
-  messagingSenderId: "546675735584",
-  appId: "1:546675735584:web:6936a85cae05134e031045"
-};
-
-// Initialize Firebase
-// Check if Firebase is already initialized to prevent errors on hot-reloads.
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
-
-export const auth = firebase.auth();
-export const db = firebase.firestore();
-export const storage = firebase.storage();
-export const googleProvider = new firebase.auth.GoogleAuthProvider();
-
-
-// --- MOCK DATA ---
-// Use this data to simulate a backend for UI development.
+import { User, Artisan, Post, Chat, Message, SliderCardData } from '../types';
 
 export const mockUsers: User[] = [
     { uid: 'user1', email: 'user1@example.com', displayName: 'Alice', photoURL: 'https://picsum.photos/seed/user1/200/200' },
@@ -70,30 +41,30 @@ export const mockMessages: Message[] = [
 export const mockSliderData: SliderCardData[] = [
     {
         bgImage: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        thumbImage: "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=2071&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        thumbImage: "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "Plumbers",
         description: "Expert solutions for all your plumbing needs."
     },
     {
-        bgImage: "https://images.unsplash.com/photo-1528605248644-effb84b242c7?q=80&w=2070&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        thumbImage: "https://images.unsplash.com/photo-1600180730761-1b984a3c1a3c?q=80&w=1974&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        bgImage: "https://images.unsplash.com/photo-1528605248644-effb84b242c7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        thumbImage: "https://images.unsplash.com/photo-1600180730761-1b984a3c1a3c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "Builders",
         description: "Quality craftsmanship from the ground up."
     },
     {
-        bgImage: "https://images.unsplash.com/photo-1599696845611-6943bc61848f?q=80&w=2070&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        thumbImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        bgImage: "https://images.unsplash.com/photo-1599696845611-6943bc61848f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        thumbImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "Designers",
         description: "Creative tools that work like you do."
     },
     {
-        bgImage: "https://images.unsplash.com/photo-1496302662116-35cc4f36df92?q=80&w=2070&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        thumbImage: "https://images.unsplash.com/photo-1596495744483-c2a4f610159a?q=80&w=1974&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        bgImage: "https://images.unsplash.com/photo-1496302662116-35cc4f36df92?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        thumbImage: "https://images.unsplash.com/photo-1596495744483-c2a4f610159a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "Painters",
         description: "Bringing color to your life, one wall at a time."
     },
     {
-        bgImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        bgImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         thumbImage: "https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=1974&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "Photographers",
         description: "From concept to cut, faster than ever before."
