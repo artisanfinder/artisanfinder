@@ -1,6 +1,6 @@
 import React, { FC, SetStateAction, Dispatch, useState, useRef, useEffect, useCallback } from 'react';
 import { Artisan, Post, NavigationState, PageName, SliderCardData } from './types';
-import { useAuth } from './App';
+import { useAuth } from './contexts/AuthContext';
 import { ICONS } from './constants';
 import { auth, googleProvider } from './services';
 
@@ -112,7 +112,7 @@ export const Header: FC<{ activePage: PageName; setNavigation: Dispatch<SetState
 
         return (
             <button key={item.name} onClick={clickHandler} className={isMobile ? mobileClasses : desktopClasses}>
-                 {isProfile ? (
+                 {isProfile && user ? (
                     <img src={user.photoURL} alt="profile" className="w-8 h-8 rounded-full object-cover" />
                 ) : (
                     <div className="relative">
