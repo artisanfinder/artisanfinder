@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { auth } from '../services';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { Icon } from '../components';
 
 const LoginPage: React.FC = () => {
@@ -11,9 +12,18 @@ const LoginPage: React.FC = () => {
         e.preventDefault();
         setError(null);
         try {
-            await auth.signInWithEmailAndPassword(email, password);
+            await signInWithEmailAndPassword(auth, email, password);
         } catch (err) {
             setError('Failed to login. Please check your credentials.');
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            await signInWithPopup(auth, provider);
+        } catch (error) {
+            setError('Failed to sign in with Google. Please try again.');
         }
     };
 
@@ -63,6 +73,13 @@ const LoginPage: React.FC = () => {
                         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                     >
                         Login
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleGoogleSignIn}
+                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    >
+                        Sign in with Google
                     </button>
                 </form>
             </div>
