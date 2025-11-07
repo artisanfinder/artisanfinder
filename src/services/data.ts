@@ -1,33 +1,4 @@
-// Fix: Use Firebase v8 compat imports. The modular SDK v9+ requires '/compat' for the v8 API.
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/compat/storage";
-import { User, Artisan, Post, Chat, Message, SliderCardData } from './types';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD64T2mgSR_K7KWvlMfsWAANIBUGJxYLQ0",
-  authDomain: "rtisanfinder.firebaseapp.com",
-  projectId: "rtisanfinder",
-  storageBucket: "rtisanfinder.firebasestorage.app",
-  messagingSenderId: "89697158609",
-  appId: "1:89697158609:web:b7077528f694946b754cf0"
-};
-
-// Initialize Firebase
-// Check if Firebase is already initialized to prevent errors on hot-reloads.
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
-
-export const auth = firebase.auth();
-export const db = firebase.firestore();
-export const storage = firebase.storage();
-export const googleProvider = new firebase.auth.GoogleAuthProvider();
-
-
-// --- MOCK DATA ---
-// Use this data to simulate a backend for UI development.
+import { User, Artisan, Post, Chat, Message, SliderCardData } from '../types';
 
 export const mockUsers: User[] = [
     { uid: 'user1', email: 'user1@example.com', displayName: 'Alice', photoURL: 'https://picsum.photos/seed/user1/200/200' },
@@ -94,7 +65,7 @@ export const mockSliderData: SliderCardData[] = [
     },
     {
         bgImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        thumbImage: "https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        thumbImage: "https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=1974&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "Photographers",
         description: "From concept to cut, faster than ever before."
     }
