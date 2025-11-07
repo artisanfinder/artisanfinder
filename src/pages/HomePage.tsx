@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, FC, Dispatch, SetStateAction } from
 import { Artisan, NavigationState } from '../types';
 import { ArtisanCard, ProductivitySlider } from '../components';
 import { mockTrendingArtisans, mockArtisans, mockSliderData } from '../services';
+import { Icon } from '../components';
 
 const HomePage: FC<{ setNavigation: Dispatch<SetStateAction<NavigationState>>, animateSearch: boolean, onAnimationComplete: () => void }> = ({ setNavigation, animateSearch, onAnimationComplete }) => {
   const [trendingArtisans, setTrendingArtisans] = useState<Artisan[]>([]);
@@ -73,25 +74,23 @@ const HomePage: FC<{ setNavigation: Dispatch<SetStateAction<NavigationState>>, a
     setSearchResults([]);
   };
 
-  const ekgPath = "M-5 50 H 30 L 35 40 L 45 60 L 50 50 H 80 L 85 45 L 90 55 L 95 50 H 150";
-
   return (
-    <div className="p-4 md:p-6 pb-24 md:pb-6 space-y-6">
+    <div className="p-4 md:p-6 pb-24 md:pb-6 space-y-8">
        <div ref={animationWrapperRef}>
-         <div ref={searchWrapperRef} className="ai-input-wrapper">
-           <div className="ai-input-container">
-             <input
-               placeholder="Search by name or craft..."
-               className="ai-input"
-               type="text"
-               value={searchQuery}
-               onChange={handleSearchChange}
-               onFocus={handleSearchChange}
-             />
+         <div ref={searchWrapperRef} className="relative max-w-lg mx-auto">
+           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+             <Icon name="search" className="h-5 w-5 text-gray-400" />
            </div>
-
+           <input
+             placeholder="Search by name or craft..."
+             className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-full leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm"
+             type="text"
+             value={searchQuery}
+             onChange={handleSearchChange}
+             onFocus={handleSearchChange}
+           />
            {searchQuery.trim() && (
-             <div className="search-results-dropdown">
+             <div className="absolute mt-1 w-full rounded-md bg-white dark:bg-gray-800 shadow-lg z-10">
                  {searchResults.length > 0 ? (
                      searchResults.map(artisan => (
                          <div
@@ -114,28 +113,12 @@ const HomePage: FC<{ setNavigation: Dispatch<SetStateAction<NavigationState>>, a
          </div>
        </div>
 
-      <div className="flex items-center justify-center my-4 px-4">
-        <div className="ekg-line-container">
-          <svg className="ekg-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d={ekgPath} />
-          </svg>
-        </div>
-        <h2 className="text-xl md:text-2xl font-bold text-primary dark:text-secondary mx-4 text-center whitespace-nowrap">
-          Discover skilled professionals
-        </h2>
-        <div className="ekg-line-container ekg-line-container--right">
-          <svg className="ekg-line" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d={ekgPath} />
-          </svg>
-        </div>
-      </div>
-
       <ProductivitySlider sliderData={mockSliderData} onCategoryClick={handleCategoryClick} />
 
       <div ref={resultsRef} className="pt-4">
-        <h2 className="text-xl font-bold text-primary dark:text-secondary mb-3">{gridTitle}</h2>
+        <h2 className="text-2xl font-bold text-primary dark:text-secondary mb-4">{gridTitle}</h2>
         {gridArtisans.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {gridArtisans.map(artisan => <ArtisanCard key={artisan.uid} artisan={artisan} setNavigation={setNavigation} />)}
             </div>
         ) : (
