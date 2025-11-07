@@ -27,7 +27,7 @@ export const Header: FC<{ activePage: PageName; setNavigation: Dispatch<SetState
             setIsMenuOpen(false);
         };
 
-        const finalLabel = isProfile ? 'Profile' : item.label;
+        const finalLabel = isProfile ? user?.displayName : item.label;
 
         const mobileClasses = "w-full flex items-center space-x-4 p-4 text-lg text-gray-200 hover:bg-gray-700";
         const desktopClasses = `flex flex-col sm:flex-row items-center sm:space-x-2 p-1 sm:p-2 rounded-lg transition-colors ${isActive ? 'text-primary dark:text-secondary font-bold' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`;
@@ -44,7 +44,7 @@ export const Header: FC<{ activePage: PageName; setNavigation: Dispatch<SetState
                         )}
                     </div>
                 )}
-                <span className={isMobile ? "" : "text-xs sm:text-sm font-medium"}>{finalLabel}</span>
+                <span className={`text-xs sm:text-sm font-medium ${isMobile ? 'text-lg' : ''}`}>{finalLabel}</span>
             </button>
         )
     };
@@ -85,7 +85,13 @@ export const Header: FC<{ activePage: PageName; setNavigation: Dispatch<SetState
             {isMenuOpen && (
                 <div className="md:hidden absolute top-full left-0 right-0 bg-gray-800 shadow-lg">
                     <nav className="flex flex-col items-start p-2">
-                         {navItems.map((item) => <NavLink key={item.name} item={item} isMobile={true} />)}
+                        {user && (
+                            <div className="w-full flex items-center space-x-4 p-4 text-lg text-gray-200">
+                                <img src={user.photoURL} alt="profile" className="w-10 h-10 rounded-full object-cover" />
+                                <span>{user.displayName}</span>
+                            </div>
+                        )}
+                        {navItems.filter(item => item.name !== 'settings').map((item) => <NavLink key={item.name} item={item} isMobile={true} />)}
                     </nav>
                 </div>
             )}
